@@ -1,4 +1,5 @@
 import { NewsArticle } from "../context/NewsTypes";
+import { formatDate } from "../utils/formatDate";
 import { getImageUrl } from "../utils/getImageUrl";
 import { removeHtmlTags } from "../utils/removeHtmlTags";
 
@@ -16,7 +17,7 @@ export default function NewsCard({ article }: NewsCardProps) {
           </figure>
           <div className='content-wrap'>
             <div className='date-wrap'>
-              <span className='date'>{article.date}</span>
+              <span className='date'>{formatDate(article.date)}</span>
             </div>
             <h3 className='title article-title two-line'>{article.title}</h3>
           </div>

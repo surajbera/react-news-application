@@ -14,8 +14,38 @@ import { fetchArticles } from "../services/newsService";
 const initialState: NewsState = {
   articles: [],
   filters: {
-    categories: [],
-    authors: [],
+    categories: [
+      {
+        text: "Benzinga",
+        checked: false,
+      },
+      {
+        text: "Lambda",
+        checked: false,
+      },
+      {
+        text: "Delta",
+        checked: false,
+      },
+      {
+        text: "Gamma",
+        checked: false,
+      },
+    ],
+    authors: [
+      {
+        text: "Benzinga Neuro",
+        checked: false,
+      },
+      {
+        text: "Werder Helmner",
+        checked: false,
+      },
+      {
+        text: "Patrick Wilson",
+        checked: false,
+      },
+    ],
   },
   sorting: {
     sortBy: "date",
@@ -31,37 +61,30 @@ export const NewsContext = createContext<NewsContextValue | null>(null);
 
 export const NewsProvider = ({ children }: NewsContextProviderProps) => {
   const [newsState, dispatchNewsAction] = useReducer(newsReducer, initialState);
+  const [filteredArticles, setFilteredArticles] = useState<NewsArticle[]>([]);
   console.log(newsState);
 
-  const [fullArticles, setFullArticles] = useState<NewsArticle[]>([]);
+  const updateCategoryFilter = (categoryText: string) => {
+    const updatedCategories = newsState.filters.categories.map((cat) =>
+      cat.text === categoryText ? { ...cat, checked: !cat.checked } : cat
+    );
 
-  const updateCategoryFilter = useCallback(
-    (categoryText: string) => {
-      const updatedCategories = newsState.filters.categories.map((cat) =>
-        cat.text === categoryText ? { ...cat, checked: !cat.checked } : cat
-      );
+    dispatchNewsAction({
+      type: "SET_FILTERS",
+      payload: { categories: updatedCategories },
+    });
+  };
 
-      dispatchNewsAction({
-        type: "SET_FILTERS",
-        payload: { ...newsState.filters, categories: updatedCategories },
-      });
-    },
-    [newsState.filters.categories, dispatchNewsAction]
-  );
+  const updateAuthorFilter = (authorText: string) => {
+    const updatedAuthors = newsState.filters.authors.map((author) =>
+      author.text === authorText ? { ...author, checked: !author.checked } : author
+    );
 
-  const updateAuthorFilter = useCallback(
-    (authorText: string) => {
-      const updatedAuthors = newsState.filters.authors.map((author) =>
-        author.text === authorText ? { ...author, checked: !author.checked } : author
-      );
-
-      dispatchNewsAction({
-        type: "SET_FILTERS",
-        payload: { ...newsState.filters, authors: updatedAuthors },
-      });
-    },
-    [newsState.filters.authors, dispatchNewsAction]
-  );
+    dispatchNewsAction({
+      type: "SET_FILTERS",
+      payload: { authors: updatedAuthors },
+    });
+  };
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -69,18 +92,7 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
     const initializeData = async () => {
       try {
         const articles = await fetchArticles(source);
-        setFullArticles(articles);
         dispatchNewsAction({ type: "SET_ARTICLES", payload: articles });
-
-        const categories = [...new Set(articles.map((article) => article.source))];
-        const authors = [...new Set(articles.map((article) => article.author))];
-        dispatchNewsAction({
-          type: "SET_FILTERS",
-          payload: {
-            categories: categories.map((c) => ({ text: c, checked: false })),
-            authors: authors.map((a) => ({ text: a, checked: false })),
-          },
-        });
       } catch (error) {
         if (!axios.isCancel(error)) {
           console.error("Failed to initialize articles:", error);
@@ -95,23 +107,28 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const filteredArticles = fullArticles.filter((article) => {
-  //     const categoryCheck = newsState.filters.categories.find(
-  //       (c) => c.text === article.source && c.checked
-  //     );
-  //     const authorCheck = newsState.filters.authors.find(
-  //       (a) => a.text === article.author && a.checked
-  //     );
+  useEffect(() => {
+    // Get the checked categories and authors
+    const activeCategories = newsState.filters.categories
+      .filter((cat) => cat.checked)
+      .map((cat) => cat.text);
+    const activeAuthors = newsState.filters.authors
+      .filter((author) => author.checked)
+      .map((author) => author.text);
 
-  //     return categoryCheck || authorCheck;
-  //   });
+    // Filter articles based on checked categories or authors
+    const filtered = newsState.articles.filter(
+      (article) =>
+        (activeCategories.length === 0 || activeCategories.includes(article.source)) &&
+        (activeAuthors.length === 0 || activeAuthors.includes(article.author))
+    );
 
-  //   dispatchNewsAction({ type: "SET_ARTICLES", payload: filteredArticles });
-  // }, [newsState.filters.categories, newsState.filters.authors, fullArticles]);
+    setFilteredArticles(filtered);
+  }, [newsState.articles, newsState.filters.categories, newsState.filters.authors]);
 
   const value = {
     ...newsState,
+    filteredArticles,
     updateCategoryFilter,
     updateAuthorFilter,
   };
