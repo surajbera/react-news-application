@@ -172,8 +172,44 @@ input[type="radio"] {
     background-position: 1200px 0;
   }
 }
+.shimmer-ui-wrap {
+  margin: 0 0 4rem;
+}
+.shimmer-top-wrap {
+  display: flex;
+  margin: 0 0 1.5rem;
+  position: relative;
+}
 
-.test {
-  height: 200px;
-  width: 200px;
+.shimmer-img-wrap {
+  width: 13rem;
+  height: 8.5rem;
+}
+
+.shimmer-content-wrap {
+  width: calc(100% - 15rem);
+  padding: 0 0 0 1.5rem;
+}
+
+.shimmer-date-wrap {
+  width: 10rem;
+  height: 1.3rem;
+  margin: 0 0 1rem;
+}
+
+.shimmer-title {
+  width: 100%;
+  height: 1.3rem;
+  margin: 0 0 1rem;
+}
+
+.shimmer-desc {
+  width: 100%;
+  height: 1.3rem;
+  margin: 0 0 1rem;
+}
+
+.shimmer-author {
+  width: 5rem;
+  height: 1.3rem;
 }

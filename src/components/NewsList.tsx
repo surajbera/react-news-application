@@ -5,39 +5,31 @@ import ShimmerUi from "./ShimmerUi";
 
 export default function NewsList() {
   const { filteredArticles, loading } = useNewsContext();
-  const renderCount = useRef(0);
+  const initialLoadComplete = useRef(false);
 
   useEffect(() => {
-    console.log(renderCount.current);
-    renderCount.current++;
-  });
+    if (!loading && filteredArticles.length > 0) {
+      initialLoadComplete.current = true;
+    }
+  }, [loading, filteredArticles.length]);
 
-  if (loading && renderCount.current <= 2) {
+  if (loading && !initialLoadComplete.current) {
     return (
       <>
-        <p>Loading Articles...</p>
+        <ShimmerUi />
+        <ShimmerUi />
+        <ShimmerUi />
         <ShimmerUi />
       </>
     );
   }
 
   if (!filteredArticles.length) {
-    if (renderCount.current <= 2) {
-      return (
-        <>
-          <p>Loading Articles...</p>
-          <ShimmerUi />
-        </>
-      );
-    }
-    if (renderCount.current > 2) {
-      return <p className='no-articles-message'>Sorry! No articles found</p>;
-    }
+    return <p className='no-articles-message'>Sorry! No articles found</p>;
   }
 
   return (
     <ul className='news-card-wrap'>
-      <ShimmerUi />
       {filteredArticles.map((article) => (
         <NewsCard key={article.url} article={article} />
       ))}
