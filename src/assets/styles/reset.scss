@@ -140,3 +140,7 @@ input:required:invalid {
   color: var(--selection-text-color);
   background: var(--selection-bg-color);
 }
+label,
+input {
+  cursor: pointer;
+}
