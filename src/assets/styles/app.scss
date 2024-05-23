@@ -8,3 +8,19 @@ body {
   min-height: 100vh;
   color: var(--text-color);
 }
+
+.news-content {
+  display: flex;
+
+  .left-wrap {
+    width: 300px;
+    // remove this
+    border: 1px solid var(--dummy-border-color);
+  }
+  .right-wrap {
+    flex: 1;
+    padding: 0 0 0 20px;
+    // remove this
+    border: 1px solid var(--dummy-border-color);
+  }
+}
