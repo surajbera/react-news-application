@@ -1,0 +1,141 @@
+/* CSS Reset */
+html {
+  text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  box-sizing: border-box;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+a:active,
+a:hover {
+  outline: none;
+}
+a {
+  text-decoration: none;
+  background: transparent;
+}
+b,
+strong {
+  font-weight: 700;
+}
+img {
+  border: 0;
+  vertical-align: middle;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+input {
+  line-height: normal;
+  border-radius: 0;
+  box-shadow: none;
+}
+input[type="submit"] {
+  -webkit-appearance: none;
+}
+button[type="submit"],
+input[type="submit"] {
+  cursor: pointer;
+}
+textarea {
+  resize: none;
+}
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border: 0;
+}
+input:focus,
+button:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+ul {
+  list-style: none;
+}
+input:required:invalid {
+  outline: 0;
+}
+.text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.clearfix::after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 13px;
+  max-width: var(--container-width);
+}
+/* *********** */
+.article-title,
+.article-desc {
+  text-transform: capitalize;
+  white-space: normal;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  transition: color 0.3s ease-out;
+  overflow: hidden;
+}
+.article-desc {
+  text-transform: initial;
+}
+.one-line {
+  -webkit-line-clamp: 1;
+}
+.two-line {
+  -webkit-line-clamp: 2;
+}
+.three-line {
+  -webkit-line-clamp: 3;
+}
+/*text selection css*/
+::-moz-selection {
+  color: var(--selection-text-color);
+  background: var(--selection-bg-color);
+}
+::selection {
+  color: var(--selection-text-color);
+  background: var(--selection-bg-color);
+}
