@@ -5,7 +5,7 @@ export default function NewsList() {
   const { articles } = useNewsContext();
 
   return (
-    <ul>
+    <ul className='news-card-wrap'>
       {articles.map((article) => (
         <NewsCard key={article.url} article={article} />
       ))}

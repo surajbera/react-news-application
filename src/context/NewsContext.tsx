@@ -95,20 +95,20 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    const filteredArticles = fullArticles.filter((article) => {
-      const categoryCheck = newsState.filters.categories.find(
-        (c) => c.text === article.source && c.checked
-      );
-      const authorCheck = newsState.filters.authors.find(
-        (a) => a.text === article.author && a.checked
-      );
+  // useEffect(() => {
+  //   const filteredArticles = fullArticles.filter((article) => {
+  //     const categoryCheck = newsState.filters.categories.find(
+  //       (c) => c.text === article.source && c.checked
+  //     );
+  //     const authorCheck = newsState.filters.authors.find(
+  //       (a) => a.text === article.author && a.checked
+  //     );
 
-      return categoryCheck || authorCheck;
-    });
+  //     return categoryCheck || authorCheck;
+  //   });
 
-    dispatchNewsAction({ type: "SET_ARTICLES", payload: filteredArticles });
-  }, [newsState.filters.categories, newsState.filters.authors, fullArticles]);
+  //   dispatchNewsAction({ type: "SET_ARTICLES", payload: filteredArticles });
+  // }, [newsState.filters.categories, newsState.filters.authors, fullArticles]);
 
   const value = {
     ...newsState,
