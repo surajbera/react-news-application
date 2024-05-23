@@ -171,3 +171,43 @@ body {
 .sort-by-text-wrap {
   height: 24px;
 }
+.header {
+  display: none;
+  justify-content: flex-end;
+  padding: 1rem 0;
+}
+.header-filter-icon {
+  display: inline-flex;
+  font-size: 2.5rem;
+  background: transparent;
+}
+
+@media only screen and (max-width: 1024px) {
+  .news-content {
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+
+    .right-wrap {
+      padding: 0;
+    }
+
+    .left-wrap {
+      position: absolute;
+      top: 0;
+      background-color: #fff;
+      z-index: 1;
+      display: none;
+
+      &.filter-block-visible {
+        display: block;
+      }
+    }
+  }
+  .header {
+    display: flex;
+  }
+  .sidebar {
+    padding-bottom: 1rem;
+  }
+}
