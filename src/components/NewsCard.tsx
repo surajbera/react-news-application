@@ -19,7 +19,11 @@ export default function NewsCard({ article }: NewsCardProps) {
             <div className='date-wrap'>
               <span className='date'>{formatDate(article.date)}</span>
             </div>
-            <h3 className='title article-title two-line'>{article.title}</h3>
+            <h3 className='title article-title two-line'>
+              <a href={article.url} target='_blank'>
+                {article.title}
+              </a>
+            </h3>
           </div>
           <p className='category'>{article.source}</p>
         </div>

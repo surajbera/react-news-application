@@ -141,6 +141,12 @@ input:required:invalid {
   background: var(--selection-bg-color);
 }
 label,
-input {
+input,
+button {
   cursor: pointer;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--accent-color);
 }

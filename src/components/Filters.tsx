@@ -1,4 +1,6 @@
 import { useNewsContext } from "../hooks/useNewsContext";
+import FilterHeading from "./FilterHeading";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 export default function Filters() {
   const {
@@ -10,10 +12,10 @@ export default function Filters() {
     sorting,
   } = useNewsContext();
   return (
-    <aside>
+    <aside className='sidebar'>
       <section>
-        <div className='filter-heading'>Category</div>
-        <ul>
+        <FilterHeading text='Category' />
+        <ul className='label-container'>
           {filters.categories.map((category) => (
             <li key={category.text}>
               <label>
@@ -22,15 +24,15 @@ export default function Filters() {
                   checked={category.checked}
                   onChange={() => updateCategoryFilter(category.text)}
                 />
-                {category.text}
+                <span>{category.text}</span>
               </label>
             </li>
           ))}
         </ul>
       </section>
       <section>
-        <div className='filter-heading'>Author</div>
-        <ul>
+        <FilterHeading text='Author' />
+        <ul className='label-container'>
           {filters.authors.map((author) => (
             <li key={author.text}>
               <label>
@@ -39,37 +41,46 @@ export default function Filters() {
                   checked={author.checked}
                   onChange={() => updateAuthorFilter(author.text)}
                 />
-                {author.text}
+                <span>{author.text}</span>
               </label>
             </li>
           ))}
         </ul>
       </section>
-      <section>
-        <div className='filter-heading'>Sort By</div>
-        <label>
-          <input
-            type='radio'
-            name='sortBy'
-            value='date'
-            onChange={() => updateSortField("date")}
-            checked={sorting.sortBy === "date"}
-          />
-          Date
-        </label>
-        <label>
-          <input
-            type='radio'
-            name='sortBy'
-            value='title'
-            onChange={() => updateSortField("title")}
-            checked={sorting.sortBy === "title"}
-          />
-          Title
-        </label>
-        <button onClick={() => updateSortOrder(sorting.sortOrder === "asc" ? "desc" : "asc")}>
-          {sorting.sortOrder === "asc" ? "↓" : "↑"}
-        </button>
+      <section className='sort-by-wrap'>
+        <FilterHeading text='Sort By' />
+        <div className='label-container'>
+          <div className='sort-by-text-wrap'>
+            <label>
+              <input
+                type='radio'
+                name='sortBy'
+                value='date'
+                onChange={() => updateSortField("date")}
+                checked={sorting.sortBy === "date"}
+              />
+              <span>Date</span>
+            </label>
+          </div>
+          <div className='sort-by-text-wrap'>
+            <label>
+              <input
+                type='radio'
+                name='sortBy'
+                value='title'
+                onChange={() => updateSortField("title")}
+                checked={sorting.sortBy === "title"}
+              />
+              <span>Title</span>
+            </label>
+          </div>
+          <button
+            className='sort-order-btn'
+            onClick={() => updateSortOrder(sorting.sortOrder === "asc" ? "desc" : "asc")}
+          >
+            {sorting.sortOrder === "asc" ? <FaArrowUp /> : <FaArrowDown />}
+          </button>
+        </div>
       </section>
     </aside>
   );
