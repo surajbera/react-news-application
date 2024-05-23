@@ -13,6 +13,7 @@ import { fetchArticles } from "../services/newsService";
 
 const initialState: NewsState = {
   articles: [],
+  loading: true,
   filters: {
     categories: [
       {
@@ -62,7 +63,8 @@ export const NewsContext = createContext<NewsContextValue | null>(null);
 export const NewsProvider = ({ children }: NewsContextProviderProps) => {
   const [newsState, dispatchNewsAction] = useReducer(newsReducer, initialState);
   const [filteredArticles, setFilteredArticles] = useState<NewsArticle[]>([]);
-  console.log(newsState);
+  console.log("newsState.loading => ", newsState.loading);
+  console.log("filteredArticles => ", filteredArticles);
 
   const updateCategoryFilter = (categoryText: string) => {
     const updatedCategories = newsState.filters.categories.map((cat) =>
@@ -102,12 +104,15 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
 
   useEffect(() => {
     const source = axios.CancelToken.source();
+    dispatchNewsAction({ type: "SET_LOADING", payload: true });
 
     const initializeData = async () => {
       try {
         const articles = await fetchArticles(source);
         dispatchNewsAction({ type: "SET_ARTICLES", payload: articles });
+        dispatchNewsAction({ type: "SET_LOADING", payload: false });
       } catch (error) {
+        dispatchNewsAction({ type: "SET_LOADING", payload: false });
         if (!axios.isCancel(error)) {
           console.error("Failed to initialize articles:", error);
         }

@@ -150,3 +150,30 @@ input[type="checkbox"],
 input[type="radio"] {
   accent-color: var(--accent-color);
 }
+
+.shimmer-ui {
+  animation: placeholder-shimmer 2s linear infinite;
+  background-color: #fff;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.08) 0,
+    rgba(0, 0, 0, 0.15) 15%,
+    rgba(0, 0, 0, 0.08) 30%
+  );
+  background-size: 1200px 100%;
+  overflow: hidden;
+}
+
+@keyframes placeholder-shimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+  100% {
+    background-position: 1200px 0;
+  }
+}
+
+.test {
+  height: 200px;
+  width: 200px;
+}

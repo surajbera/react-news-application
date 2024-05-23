@@ -15,6 +15,11 @@ export function newsReducer(state: NewsState, action: NewsAction): NewsState {
           ...action.payload,
         },
       };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.payload,
+      };
     case "SET_SORTING":
       return {
         ...state,
@@ -31,6 +36,7 @@ export function newsReducer(state: NewsState, action: NewsAction): NewsState {
           currentPage: action.payload,
         },
       };
+
     default:
       return state;
   }
