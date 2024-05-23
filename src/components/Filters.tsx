@@ -1,7 +1,14 @@
 import { useNewsContext } from "../hooks/useNewsContext";
 
 export default function Filters() {
-  const { filters, updateCategoryFilter, updateAuthorFilter } = useNewsContext();
+  const {
+    filters,
+    updateCategoryFilter,
+    updateAuthorFilter,
+    updateSortField,
+    updateSortOrder,
+    sorting,
+  } = useNewsContext();
   return (
     <aside>
       <section>
@@ -37,6 +44,32 @@ export default function Filters() {
             </li>
           ))}
         </ul>
+      </section>
+      <section>
+        <div className='filter-heading'>Sort By</div>
+        <label>
+          <input
+            type='radio'
+            name='sortBy'
+            value='date'
+            onChange={() => updateSortField("date")}
+            checked={sorting.sortBy === "date"}
+          />
+          Date
+        </label>
+        <label>
+          <input
+            type='radio'
+            name='sortBy'
+            value='title'
+            onChange={() => updateSortField("title")}
+            checked={sorting.sortBy === "title"}
+          />
+          Title
+        </label>
+        <button onClick={() => updateSortOrder(sorting.sortOrder === "asc" ? "desc" : "asc")}>
+          {sorting.sortOrder === "asc" ? "↓" : "↑"}
+        </button>
       </section>
     </aside>
   );

@@ -86,6 +86,20 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
     });
   };
 
+  const updateSortField = (field: "date" | "title") => {
+    dispatchNewsAction({
+      type: "SET_SORTING",
+      payload: { sortBy: field, sortOrder: newsState.sorting.sortOrder },
+    });
+  };
+
+  const updateSortOrder = (order: "asc" | "desc") => {
+    dispatchNewsAction({
+      type: "SET_SORTING",
+      payload: { sortBy: newsState.sorting.sortBy, sortOrder: order },
+    });
+  };
+
   useEffect(() => {
     const source = axios.CancelToken.source();
 
@@ -117,18 +131,39 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
       .map((author) => author.text);
 
     // Filter articles based on checked categories or authors
-    const filtered = newsState.articles.filter(
+    let results = newsState.articles.filter(
       (article) =>
         (activeCategories.length === 0 || activeCategories.includes(article.source)) &&
         (activeAuthors.length === 0 || activeAuthors.includes(article.author))
     );
 
-    setFilteredArticles(filtered);
-  }, [newsState.articles, newsState.filters.categories, newsState.filters.authors]);
+    // Sorting logic
+    results = results.sort((a, b) => {
+      if (newsState.sorting.sortBy === "date") {
+        const dateA = new Date(a.date).getTime(); // Convert to milliseconds // remove this - here was the error if .getTIme() was not added
+        const dateB = new Date(b.date).getTime(); // Convert to milliseconds
+        return newsState.sorting.sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+      } else if (newsState.sorting.sortBy === "title") {
+        return newsState.sorting.sortOrder === "asc"
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      }
+      return 0;
+    });
+
+    setFilteredArticles(results);
+  }, [
+    newsState.articles,
+    newsState.filters.categories,
+    newsState.filters.authors,
+    newsState.sorting,
+  ]);
 
   const value = {
     ...newsState,
     filteredArticles,
+    updateSortField,
+    updateSortOrder,
     updateCategoryFilter,
     updateAuthorFilter,
   };
