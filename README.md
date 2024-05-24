@@ -1,30 +1,57 @@
-# React + TypeScript + Vite
+<h1>News Application</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Demo:** [View Application](https://www.google.com)
 
-Currently, two official plugins are available:
+This **React and TypeScript** application offers advanced **filtering, sorting, and pagination
+features**, enabling users to efficiently manage data retrieval. Users can sort articles by date or
+title and filter results based on category or author. The application ensures seamless navigation by
+**dynamically updating pagination based on filtered outputs**. State management is efficiently
+handled using the **Context API**, with **SCSS** for modular UI styling. Comprehensive error
+handling mechanisms are integrated to ensure reliability and robustness, enhancing the overall user
+experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h2>Table of Contents</h2>
 
-## Expanding the ESLint configuration
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+  - [Screenshot 1](#screenshot-1)
+  - [Screenshot 2](#screenshot-2)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technologies Used
 
-- Configure the top-level `parserOptions` property like this:
+- **React**: A JavaScript library for building user interfaces.
+- **SCSS**: For styling the UI.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+- **Context API**: For state management.
+- **Axios**: For data fetching.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Installation
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/surajbera/react-news-application
+   ```
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+
+## Usage
+
+1. Start the development server:
+   ```bash
+   npm run dev
+   ```
+2. Open [http://localhost:5173/](http://localhost:5173/) to view it in the browser.
+
+## Screenshots
+
+### Screenshot 1
+
+![Screenshot 1](./screenshots/page-1.png)
+
+### Screenshot 2
+
+![Screenshot 2](./screenshots/page-2.png)
