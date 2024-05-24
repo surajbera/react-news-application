@@ -5,10 +5,11 @@ import ShimmerUi from "./ShimmerUi";
 import { IoChevronBackSharp, IoChevronForwardSharp } from "react-icons/io5";
 
 export default function NewsList() {
-  const { filteredArticles, loading, updateCurrentPage, pagination, articles } = useNewsContext();
+  const { filteredArticles, loading, updateCurrentPage, pagination, totalFilteredArticles } =
+    useNewsContext();
   const initialLoadComplete = useRef(false);
 
-  const totalPages = Math.ceil(articles.length / pagination.itemsPerPage);
+  const totalPages = Math.ceil(totalFilteredArticles / pagination.itemsPerPage);
 
   useEffect(() => {
     if (!loading && filteredArticles.length > 0) {

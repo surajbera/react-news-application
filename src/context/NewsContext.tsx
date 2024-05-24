@@ -62,6 +62,7 @@ export const NewsContext = createContext<NewsContextValue | null>(null);
 
 export const NewsProvider = ({ children }: NewsContextProviderProps) => {
   const [newsState, dispatchNewsAction] = useReducer(newsReducer, initialState);
+  const [totalFilteredArticles, setTotalFilteredArticles] = useState<number>(0);
   const [filteredArticles, setFilteredArticles] = useState<NewsArticle[]>([]);
 
   const updateCategoryFilter = (categoryText: string) => {
@@ -144,6 +145,8 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
         (activeAuthors.length === 0 || activeAuthors.includes(article.author))
     );
 
+    setTotalFilteredArticles(results.length); // Set the total number of filtered articles
+
     // Sorting logic
     results = results.sort((a, b) => {
       if (newsState.sorting.sortBy === "date") {
@@ -165,8 +168,6 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
       startIndex + newsState.pagination.itemsPerPage
     );
 
-    console.log("paginatedResults => ", paginatedResults);
-
     setFilteredArticles(paginatedResults);
   }, [
     newsState.articles,
@@ -180,6 +181,7 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
   const value = {
     ...newsState,
     filteredArticles,
+    totalFilteredArticles,
     updateSortField,
     updateSortOrder,
     updateCategoryFilter,

@@ -29,6 +29,7 @@ export interface NewsState {
 
 export interface NewsContextValue extends NewsState {
   filteredArticles: NewsArticle[];
+  totalFilteredArticles: number;
   updateAuthorFilter: (author: string) => void;
   updateCategoryFilter: (category: string) => void;
   updateSortField: (field: "date" | "title") => void;
