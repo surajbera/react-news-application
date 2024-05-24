@@ -36,7 +36,11 @@ export function newsReducer(state: NewsState, action: NewsAction): NewsState {
           currentPage: action.payload,
         },
       };
-
+    case "SET_ERROR": // Handle error state
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }

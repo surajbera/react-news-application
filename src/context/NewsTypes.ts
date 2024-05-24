@@ -12,6 +12,7 @@ export interface NewsArticle {
 
 export interface NewsState {
   articles: NewsArticle[];
+  error: string | null;
   loading: boolean;
   filters: {
     categories: { text: string; checked: boolean }[];
@@ -52,13 +53,15 @@ export type SetSortingAction = {
 };
 export type SetPageAction = { type: "SET_PAGE"; payload: number };
 export type SetLoadingAction = { type: "SET_LOADING"; payload: boolean };
+export type SetErrorAction = { type: "SET_ERROR"; payload: string | null };
 
 export type NewsAction =
   | SetArticlesAction
   | SetFiltersAction
   | SetSortingAction
   | SetPageAction
-  | SetLoadingAction;
+  | SetLoadingAction
+  | SetErrorAction;
 
 export type NewsContextProviderProps = {
   children: ReactNode;

@@ -5,7 +5,7 @@ import ShimmerUi from "./ShimmerUi";
 import { IoChevronBackSharp, IoChevronForwardSharp } from "react-icons/io5";
 
 export default function NewsList() {
-  const { filteredArticles, loading, updateCurrentPage, pagination, totalFilteredArticles } =
+  const { filteredArticles, loading, updateCurrentPage, pagination, totalFilteredArticles, error } =
     useNewsContext();
   const initialLoadComplete = useRef(false);
 
@@ -19,6 +19,10 @@ export default function NewsList() {
 
   if (loading && !initialLoadComplete.current) {
     return <ShimmerUi />;
+  }
+
+  if (error) {
+    return <p className='error-message'>{error}</p>;
   }
 
   if (!filteredArticles.length) {

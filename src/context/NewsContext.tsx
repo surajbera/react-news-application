@@ -14,6 +14,7 @@ import { fetchArticles } from "../services/newsService";
 const initialState: NewsState = {
   articles: [],
   loading: true,
+  error: null,
   filters: {
     categories: [
       {
@@ -116,6 +117,10 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
         dispatchNewsAction({ type: "SET_LOADING", payload: false });
       } catch (error) {
         dispatchNewsAction({ type: "SET_LOADING", payload: false });
+        dispatchNewsAction({
+          type: "SET_ERROR",
+          payload: "Failed to fetch articles. Please try again later.",
+        });
         if (!axios.isCancel(error)) {
           console.error("Failed to initialize articles:", error);
         }

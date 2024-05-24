@@ -14,13 +14,15 @@ export const fetchArticles = async (cancelToken: CancelTokenSource): Promise<New
     const axiosError = error as AxiosError;
     if (axios.isCancel(error)) {
       console.log("Request canceled:", axiosError.message);
+      throw new Error("Request canceled by the user.");
     } else if (axiosError.response) {
       console.error(
         `Failed to fetch articles: ${axiosError.response.status} ${axiosError.response.statusText}`
       );
+      throw new Error("Failed to fetch articles. Please check the network or contact support.");
     } else {
       console.error("Failed to fetch articles:", axiosError.message);
+      throw new Error("Failed to fetch articles. Please try again later.");
     }
-    throw error; // rethrow the error if you need to handle it later
   }
 };
