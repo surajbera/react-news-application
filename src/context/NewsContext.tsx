@@ -145,6 +145,7 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
         (activeAuthors.length === 0 || activeAuthors.includes(article.author))
     );
 
+    // Update total filtered articles
     setTotalFilteredArticles(results.length); // Set the total number of filtered articles
 
     // Sorting logic
@@ -160,6 +161,17 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
       }
       return 0;
     });
+
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(results.length / newsState.pagination.itemsPerPage);
+
+    // Adjust the current page if out of range
+    const updatedCurrentPage = Math.min(newsState.pagination.currentPage, totalPages) || 1;
+
+    // Update current page if necessary
+    if (newsState.pagination.currentPage !== updatedCurrentPage) {
+      dispatchNewsAction({ type: "SET_PAGE", payload: updatedCurrentPage });
+    }
 
     // Pagination logic
     const startIndex = (newsState.pagination.currentPage - 1) * newsState.pagination.itemsPerPage;
