@@ -22,6 +22,8 @@ experience.
 ## Technologies Used
 
 - **React**: A JavaScript library for building user interfaces.
+- **React Router DOM**: Manages seamless navigation for the application, including error pages
+  like 404.
 - **SCSS**: For styling the UI.
 - **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
 - **Context API**: For state management.
