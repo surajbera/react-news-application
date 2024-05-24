@@ -1,6 +1,6 @@
 <h1>News Application</h1>
 
-**Live Demo:** [View Application](https://www.google.com)
+**Live Demo:** [View Application](https://rt-news-app.firebaseapp.com/)
 
 This **React and TypeScript** application offers advanced **filtering, sorting, and pagination
 features**, enabling users to efficiently manage data retrieval. Users can sort articles by date or
