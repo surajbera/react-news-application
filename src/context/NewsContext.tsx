@@ -1,5 +1,5 @@
 // libraries
-import { createContext, useReducer, useEffect, useState, useCallback } from "react";
+import { createContext, useReducer, useEffect, useState } from "react";
 import axios from "axios";
 
 // types
