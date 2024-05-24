@@ -218,7 +218,6 @@ body {
 @media only screen and (max-width: 1024px) {
   .news-content {
     flex-direction: column;
-    align-items: flex-end;
     position: relative;
 
     .right-wrap {
@@ -231,6 +230,7 @@ body {
       background-color: #fff;
       z-index: 1;
       display: none;
+      right: 0;
 
       &.filter-block-visible {
         display: block;
