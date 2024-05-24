@@ -148,7 +148,6 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  background: transparent;
   color: var(--text-color);
 
   &:hover {
@@ -179,7 +178,41 @@ body {
 .header-filter-icon {
   display: inline-flex;
   font-size: 2.5rem;
-  background: transparent;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 0;
+  gap: 1rem;
+  align-items: center;
+
+  button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+
+    &:disabled {
+      svg {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .active {
+    background: var(--text-color);
+    color: #fff;
+  }
+
+  svg {
+    font-size: 1.5rem;
+    color: var(--text-color);
+  }
 }
 
 @media only screen and (max-width: 1024px) {

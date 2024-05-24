@@ -33,6 +33,7 @@ export interface NewsContextValue extends NewsState {
   updateCategoryFilter: (category: string) => void;
   updateSortField: (field: "date" | "title") => void;
   updateSortOrder: (order: "asc" | "desc") => void;
+  updateCurrentPage: (page: number) => void;
 }
 
 // Actions to manipulate the central state

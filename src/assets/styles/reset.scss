@@ -151,6 +151,10 @@ input[type="radio"] {
   accent-color: var(--accent-color);
 }
 
+button {
+  background: transparent;
+}
+
 .shimmer-ui {
   animation: placeholder-shimmer 2s linear infinite;
   background-color: #fff;

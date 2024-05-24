@@ -63,8 +63,6 @@ export const NewsContext = createContext<NewsContextValue | null>(null);
 export const NewsProvider = ({ children }: NewsContextProviderProps) => {
   const [newsState, dispatchNewsAction] = useReducer(newsReducer, initialState);
   const [filteredArticles, setFilteredArticles] = useState<NewsArticle[]>([]);
-  console.log("newsState.loading => ", newsState.loading);
-  console.log("filteredArticles => ", filteredArticles);
 
   const updateCategoryFilter = (categoryText: string) => {
     const updatedCategories = newsState.filters.categories.map((cat) =>
@@ -100,6 +98,10 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
       type: "SET_SORTING",
       payload: { sortBy: newsState.sorting.sortBy, sortOrder: order },
     });
+  };
+
+  const updateCurrentPage = (page: number) => {
+    dispatchNewsAction({ type: "SET_PAGE", payload: page });
   };
 
   useEffect(() => {
@@ -156,12 +158,23 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
       return 0;
     });
 
-    setFilteredArticles(results);
+    // Pagination logic
+    const startIndex = (newsState.pagination.currentPage - 1) * newsState.pagination.itemsPerPage;
+    const paginatedResults = results.slice(
+      startIndex,
+      startIndex + newsState.pagination.itemsPerPage
+    );
+
+    console.log("paginatedResults => ", paginatedResults);
+
+    setFilteredArticles(paginatedResults);
   }, [
     newsState.articles,
     newsState.filters.categories,
     newsState.filters.authors,
     newsState.sorting,
+    newsState.pagination.currentPage,
+    newsState.pagination.itemsPerPage,
   ]);
 
   const value = {
@@ -171,6 +184,7 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
     updateSortOrder,
     updateCategoryFilter,
     updateAuthorFilter,
+    updateCurrentPage,
   };
 
   return <NewsContext.Provider value={value}>{children}</NewsContext.Provider>;
