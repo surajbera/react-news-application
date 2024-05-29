@@ -2,12 +2,15 @@ import { NewsArticle } from "../context/NewsTypes";
 import { formatDate } from "../utils/formatDate";
 import { getImageUrl } from "../utils/getImageUrl";
 import { removeHtmlTags } from "../utils/removeHtmlTags";
+import DOMPurify from "dompurify";
 
 interface NewsCardProps {
   article: NewsArticle;
 }
 
 export default function NewsCard({ article }: NewsCardProps) {
+  const cleanTitle = DOMPurify.sanitize(article.title);
+
   return (
     <li className='news-card'>
       <article>
@@ -21,7 +24,7 @@ export default function NewsCard({ article }: NewsCardProps) {
             </div>
             <h3 className='title article-title two-line'>
               <a href={article.url} target='_blank'>
-                {article.title}
+                <span dangerouslySetInnerHTML={{ __html: cleanTitle }}></span>
               </a>
             </h3>
           </div>
