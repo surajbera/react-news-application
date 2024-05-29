@@ -3,8 +3,6 @@ export default function ShimmerUi() {
     <div className='shimmer-ui-container'>
       {Array.from({ length: 4 }, (_, i) => (
         <div key={i} className='shimmer-ui-wrap'>
-          {" "}
-          {/* Added a key prop here for React list rendering */}
           <article>
             <div className='shimmer-top-wrap'>
               <figure className='shimmer-ui shimmer-img-wrap'>

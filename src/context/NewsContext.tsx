@@ -156,8 +156,8 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
     // Sorting logic
     results = results.sort((a, b) => {
       if (newsState.sorting.sortBy === "date") {
-        const dateA = new Date(a.date).getTime(); // Convert to milliseconds // remove this - here was the error if .getTIme() was not added
-        const dateB = new Date(b.date).getTime(); // Convert to milliseconds
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
         return newsState.sorting.sortOrder === "asc" ? dateA - dateB : dateB - dateA;
       } else if (newsState.sorting.sortBy === "title") {
         return newsState.sorting.sortOrder === "asc"
