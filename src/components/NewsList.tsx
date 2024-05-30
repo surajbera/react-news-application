@@ -4,6 +4,9 @@ import NewsCard from "./NewsCard";
 import ShimmerUi from "./ShimmerUi";
 import { IoChevronBackSharp, IoChevronForwardSharp } from "react-icons/io5";
 
+// styles
+import "../assets/styles/NewsList.scss";
+
 export default function NewsList() {
   const { filteredArticles, loading, updateCurrentPage, pagination, totalFilteredArticles, error } =
     useNewsContext();

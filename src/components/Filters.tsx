@@ -2,6 +2,9 @@ import { useNewsContext } from "../hooks/useNewsContext";
 import FilterHeading from "./FilterHeading";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
+// styles
+import "../assets/styles/Filters.scss";
+
 export default function Filters() {
   const {
     filters,

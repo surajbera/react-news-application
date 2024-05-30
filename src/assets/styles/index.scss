@@ -8,7 +8,6 @@
   --accent-color: #5113d7;
 }
 
-@import "reset";
-@import "fonts";
-@import "app";
-@import "error-page";
+@import "base/reset";
+@import "base/fonts";
+@import "base/error-page";
