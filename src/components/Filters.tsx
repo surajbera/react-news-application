@@ -1,6 +1,7 @@
 import { useNewsContext } from "../hooks/useNewsContext";
 import FilterHeading from "./FilterHeading";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import FilterShimmer from "./FilterShimmer";
 
 // styles
 import "../assets/styles/Filters.scss";
@@ -13,12 +14,18 @@ export default function Filters() {
     updateSortField,
     updateSortOrder,
     sorting,
+    loading,
   } = useNewsContext();
+
+  const isFiltersLoading =
+    loading || (filters.categories.length === 0 && filters.authors.length === 0);
+
   return (
     <aside className='sidebar'>
       <section>
         <FilterHeading text='Category' />
         <ul className='label-container'>
+          {isFiltersLoading && <FilterShimmer />}
           {filters.categories.map((category) => (
             <li key={category.text}>
               <label>
@@ -36,6 +43,7 @@ export default function Filters() {
       <section>
         <FilterHeading text='Author' />
         <ul className='label-container'>
+          {isFiltersLoading && <FilterShimmer />}
           {filters.authors.map((author) => (
             <li key={author.text}>
               <label>

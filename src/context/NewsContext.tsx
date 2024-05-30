@@ -16,38 +16,8 @@ const initialState: NewsState = {
   loading: true,
   error: null,
   filters: {
-    categories: [
-      {
-        text: "Benzinga",
-        checked: false,
-      },
-      {
-        text: "Lambda",
-        checked: false,
-      },
-      {
-        text: "Delta",
-        checked: false,
-      },
-      {
-        text: "Gamma",
-        checked: false,
-      },
-    ],
-    authors: [
-      {
-        text: "Benzinga Neuro",
-        checked: false,
-      },
-      {
-        text: "Werder Helmner",
-        checked: false,
-      },
-      {
-        text: "Patrick Wilson",
-        checked: false,
-      },
-    ],
+    categories: [],
+    authors: [],
   },
   sorting: {
     sortBy: "date",
@@ -113,6 +83,14 @@ export const NewsProvider = ({ children }: NewsContextProviderProps) => {
     const initializeData = async () => {
       try {
         const articles = await fetchArticles(source);
+        const categories = [...new Set(articles.map((article) => article.source))].map(
+          (category) => ({ text: category, checked: false })
+        );
+        const authors = [...new Set(articles.map((article) => article.author))].map((author) => ({
+          text: author,
+          checked: false,
+        }));
+        dispatchNewsAction({ type: "SET_FILTERS", payload: { categories, authors } });
         dispatchNewsAction({ type: "SET_ARTICLES", payload: articles });
         dispatchNewsAction({ type: "SET_LOADING", payload: false });
       } catch (error) {
